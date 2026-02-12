@@ -952,7 +952,7 @@ const initialSettings: SiteSettings = {
   tagline: 'Join Our Growing Team',
   description: 'Discover exciting career opportunities with Vortex Care and Support Ltd. We\'re seeking talented professionals to join our growing UK-based organisation across healthcare, technology, education, and business services.',
   phone: '+44 (0)20 7946 0958',
-  email: 'careers@vortexcare.co.uk',
+  email: 'admin@vortexcaresupportltd.com',
   address: '45 Harley Street, London, W1G 8QH, United Kingdom',
   operatingHours: 'Monday - Friday: 9:00 AM - 5:30 PM GMT',
   emergencyContact: '+44 (0)20 7946 0958',
