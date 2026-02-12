@@ -11,21 +11,6 @@
   to = "/index.html"
   status = 200
 
-[context.production]
-  command = "npm run build"
-  publish = "dist"
-
-[context.production.environment]
-  NODE_ENV = "production"
-
-[context.deploy-preview]
-  command = "npm run build"
-  publish = "dist"
-
-[context.branch-deploy]
-  command = "npm run build"
-  publish = "dist"
-
 # Headers for security
 [[headers]]
   for = "/*"
