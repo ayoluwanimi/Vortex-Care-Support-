@@ -40,7 +40,7 @@ export function AboutPage() {
             </div>
             <div className="relative hidden lg:block">
               <img
-                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600"
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80"
                 alt="Healthcare Facility"
                 className="rounded-2xl shadow-xl"
               />

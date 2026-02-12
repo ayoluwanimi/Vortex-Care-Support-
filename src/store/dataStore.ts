@@ -29,7 +29,7 @@ const initialJobPositions: JobPosition[] = [
       'Professional development opportunities'
     ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1632925686637-d32aaded46e3?w=800',
+    featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&q=80',
     applicationsCount: 12,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -59,7 +59,7 @@ const initialJobPositions: JobPosition[] = [
       'Flexible scheduling'
     ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800',
+    featuredImage: 'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&q=80',
     applicationsCount: 8,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -89,7 +89,7 @@ const initialJobPositions: JobPosition[] = [
       'Continuing education support'
     ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800',
+    featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80',
     applicationsCount: 5,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -119,7 +119,7 @@ const initialJobPositions: JobPosition[] = [
       'Career advancement opportunities'
     ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde0f?w=800',
+    featuredImage: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde0f?w=800&q=80',
     applicationsCount: 15,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -149,7 +149,7 @@ const initialJobPositions: JobPosition[] = [
       'Friendly work environment'
     ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800',
+    featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80',
     applicationsCount: 10,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -179,7 +179,7 @@ const initialJobPositions: JobPosition[] = [
       'Team environment'
     ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800',
+    featuredImage: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80',
     applicationsCount: 6,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),

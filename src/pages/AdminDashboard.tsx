@@ -39,7 +39,7 @@ export function AdminDashboard() {
     benefits: '',
     salary: { min: 0, max: 0, currency: 'USD' },
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800',
+    featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80',
   });
 
   // User form state
@@ -171,7 +171,7 @@ export function AdminDashboard() {
       benefits: '',
       salary: { min: 0, max: 0, currency: 'USD' },
       isActive: true,
-      featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800',
+      featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80',
     });
   };
 
