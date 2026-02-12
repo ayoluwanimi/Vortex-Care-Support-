@@ -21,9 +21,8 @@ export function Layout({ children }: LayoutProps) {
 
   const navLinks = [
     { path: '/', label: 'Home' },
-    { path: '/services', label: 'Services' },
+    { path: '/jobs', label: 'Job Positions' },
     { path: '/about', label: 'About Us' },
-    { path: '/book-appointment', label: 'Book Appointment' },
     { path: '/contact', label: 'Contact' },
   ];
 
@@ -134,12 +133,12 @@ export function Layout({ children }: LayoutProps) {
                         </Link>
                       )}
                       <Link
-                        to="/patient-portal"
+                        to="/job-seeker-portal"
                         onClick={() => setIsUserMenuOpen(false)}
                         className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
                       >
                         <User size={18} />
-                        <span>Patient Portal</span>
+                        <span>My Applications</span>
                       </Link>
                       <button
                         onClick={handleLogout}
@@ -210,11 +209,11 @@ export function Layout({ children }: LayoutProps) {
                       </Link>
                     )}
                     <Link
-                      to="/patient-portal"
+                      to="/job-seeker-portal"
                       onClick={() => setIsMenuOpen(false)}
                       className="block px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-gray-50"
                     >
-                      Patient Portal
+                      My Applications
                     </Link>
                     <button
                       onClick={() => { handleLogout(); setIsMenuOpen(false); }}
@@ -297,23 +296,18 @@ export function Layout({ children }: LayoutProps) {
                     </Link>
                   </li>
                 ))}
-                <li>
-                  <Link to="/patient-portal" className="text-gray-400 hover:text-white transition-colors text-sm">
-                    Patient Portal
-                  </Link>
-                </li>
               </ul>
             </div>
 
-            {/* Services */}
+            {/* Job Categories */}
             <div>
-              <h4 className="font-semibold text-lg mb-4">Our Services</h4>
+              <h4 className="font-semibold text-lg mb-4">Job Categories</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Primary Care</Link></li>
-                <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Specialist Consultations</Link></li>
-                <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Preventive Screening</Link></li>
-                <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Mental Health</Link></li>
-                <li><Link to="/services" className="text-gray-400 hover:text-white transition-colors">Telehealth</Link></li>
+                <li><Link to="/jobs" className="text-gray-400 hover:text-white transition-colors">Nursing</Link></li>
+                <li><Link to="/jobs" className="text-gray-400 hover:text-white transition-colors">Clinical</Link></li>
+                <li><Link to="/jobs" className="text-gray-400 hover:text-white transition-colors">Laboratory</Link></li>
+                <li><Link to="/jobs" className="text-gray-400 hover:text-white transition-colors">Administration</Link></li>
+                <li><Link to="/jobs" className="text-gray-400 hover:text-white transition-colors">All Positions</Link></li>
               </ul>
             </div>
 

@@ -3,6 +3,7 @@ import { Layout } from '@/components/Layout';
 import { HomePage } from '@/pages/HomePage';
 import { JobsPage } from '@/pages/JobsPage';
 import { JobApplicationPage } from '@/pages/JobApplicationPage';
+import { JobSeekerPortal } from '@/pages/JobSeekerPortal';
 import { AboutPage } from '@/pages/AboutPage';
 import { ContactPage } from '@/pages/ContactPage';
 import { LoginPage, RegisterPage } from '@/pages/AuthPages';
@@ -45,6 +46,16 @@ export function App() {
         {/* Auth Routes (No Layout) */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        
+        {/* Job Seeker Portal (Protected) */}
+        <Route
+          path="/job-seeker-portal"
+          element={
+            <ProtectedRoute>
+              <Layout><JobSeekerPortal /></Layout>
+            </ProtectedRoute>
+          }
+        />
         
         {/* Admin Dashboard (Protected) */}
         <Route
