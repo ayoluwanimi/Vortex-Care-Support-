@@ -76,8 +76,8 @@ export function Layout({ children }: LayoutProps) {
                 <span className="text-white font-bold text-xl">V</span>
               </div>
               <div>
-                <h1 className="font-bold text-xl text-gray-900">Vortex Care</h1>
-                <p className="text-xs text-gray-500">Support LTD</p>
+                <h1 className="font-bold text-xl text-gray-900">Vortex Care and Support</h1>
+                <p className="text-xs text-gray-500">LTD</p>
               </div>
             </Link>
 
@@ -262,8 +262,8 @@ export function Layout({ children }: LayoutProps) {
                   <span className="text-white font-bold">V</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">Vortex Care</h3>
-                  <p className="text-xs text-gray-400">Support LTD</p>
+                  <h3 className="font-bold text-lg">Vortex Care and Support</h3>
+                  <p className="text-xs text-gray-400">LTD</p>
                 </div>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
@@ -342,7 +342,7 @@ export function Layout({ children }: LayoutProps) {
         <div className="border-t border-gray-800">
           <div className="max-w-7xl mx-auto px-4 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-              <p>&copy; {new Date().getFullYear()} Vortex Care Support LTD. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} Vortex Care and Support LTD. All rights reserved.</p>
               <div className="flex gap-6">
                 <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
                 <Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>

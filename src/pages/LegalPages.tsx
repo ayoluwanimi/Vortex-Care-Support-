@@ -8,7 +8,7 @@ export function PrivacyPolicyPage() {
           
           <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">1. Information We Collect</h2>
           <p className="text-gray-600 mb-4">
-            At Vortex Care Support LTD, we collect information that you provide directly to us, including:
+            At Vortex Care and Support LTD, we collect information that you provide directly to us, including:
           </p>
           <ul className="list-disc pl-6 text-gray-600 mb-4 space-y-2">
             <li>Personal identification information (name, email address, phone number, date of birth)</li>
@@ -78,13 +78,13 @@ export function TermsOfServicePage() {
           
           <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">1. Acceptance of Terms</h2>
           <p className="text-gray-600 mb-4">
-            By accessing and using the Vortex Care Support LTD website and services, you agree to be bound by 
+            By accessing and using the Vortex Care and Support LTD website and services, you agree to be bound by 
             these Terms of Service. If you do not agree to these terms, please do not use our services.
           </p>
 
           <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">2. Services Description</h2>
           <p className="text-gray-600 mb-4">
-            Vortex Care Support LTD provides healthcare services including but not limited to primary care, 
+            Vortex Care and Support LTD provides healthcare services including but not limited to primary care, 
             specialist consultations, preventive screenings, and telehealth services. Our services are subject 
             to availability and applicable medical guidelines.
           </p>
@@ -114,7 +114,7 @@ export function TermsOfServicePage() {
 
           <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">6. Limitation of Liability</h2>
           <p className="text-gray-600 mb-4">
-            While we strive to provide the highest quality care, Vortex Care Support LTD shall not be liable 
+            While we strive to provide the highest quality care, Vortex Care and Support LTD shall not be liable 
             for any indirect, incidental, or consequential damages arising from the use of our services.
           </p>
 
@@ -136,7 +136,7 @@ export function HIPAACompliancePage() {
         <h1 className="text-4xl font-bold text-gray-900 mb-8">HIPAA Compliance Statement</h1>
         <div className="bg-white rounded-2xl shadow-lg p-8 prose prose-blue max-w-none">
           <p className="text-gray-600 mb-6">
-            Vortex Care Support LTD is committed to protecting the privacy and security of your protected 
+            Vortex Care and Support LTD is committed to protecting the privacy and security of your protected 
             health information (PHI) in compliance with the Health Insurance Portability and Accountability 
             Act (HIPAA) of 1996.
           </p>

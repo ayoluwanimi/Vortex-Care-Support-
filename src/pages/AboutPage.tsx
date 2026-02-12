@@ -14,7 +14,7 @@ export function AboutPage() {
   ];
 
   const milestones = [
-    { year: '1998', title: 'Founded', description: 'Vortex Care Support was established with a mission to provide quality healthcare.' },
+    { year: '1998', title: 'Founded', description: 'Vortex Care and Support was established with a mission to provide quality healthcare.' },
     { year: '2005', title: 'Expansion', description: 'Opened our second facility and expanded our team of specialists.' },
     { year: '2012', title: 'Technology', description: 'Implemented state-of-the-art electronic health records system.' },
     { year: '2018', title: 'Telehealth', description: 'Launched our telehealth platform for remote consultations.' },
@@ -35,7 +35,7 @@ export function AboutPage() {
                 Your Trusted Partner in Healthcare Excellence
               </h1>
               <p className="text-xl text-blue-200">
-                For over 25 years, Vortex Care Support has been committed to providing exceptional healthcare services to our community.
+                For over 25 years, Vortex Care and Support has been committed to providing exceptional healthcare services to our community.
               </p>
             </div>
             <div className="relative hidden lg:block">
@@ -208,7 +208,7 @@ export function AboutPage() {
             Ready to Experience Our Care?
           </h2>
           <p className="text-lg text-blue-100 mb-8">
-            Schedule an appointment today and discover the Vortex Care difference.
+            Schedule an appointment today and discover the Vortex Care and Support difference.
           </p>
           <Link
             to="/book-appointment"
