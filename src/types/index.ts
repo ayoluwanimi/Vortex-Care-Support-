@@ -154,6 +154,46 @@ export interface AuditLog {
   createdAt: string;
 }
 
+export interface JobPosition {
+  id: string;
+  title: string;
+  slug: string;
+  department: string;
+  location: string;
+  jobType: 'full-time' | 'part-time' | 'contract' | 'temporary';
+  experienceLevel: 'entry' | 'mid' | 'senior' | 'executive';
+  salary: {
+    min: number;
+    max: number;
+    currency: string;
+  };
+  description: string;
+  requirements: string[];
+  benefits: string[];
+  isActive: boolean;
+  featuredImage: string;
+  applicationsCount: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface JobApplication {
+  id: string;
+  jobPositionId: string;
+  jobTitle: string;
+  applicantName: string;
+  applicantEmail: string;
+  applicantPhone: string;
+  resume: string;
+  coverLetter: string;
+  qualifications: string;
+  yearsOfExperience: number;
+  status: 'submitted' | 'under-review' | 'shortlisted' | 'rejected' | 'offered' | 'hired';
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface SiteSettings {
   siteName: string;
   tagline: string;

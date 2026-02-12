@@ -1,255 +1,228 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Service, Appointment, Patient, TeamMember, Testimonial, BlogPost, ContactMessage, AuditLog, SiteSettings } from '@/types';
+import type { JobPosition, JobApplication, ContactMessage, SiteSettings } from '@/types';
 
-// Initial Data
-const initialServices: Service[] = [
+// Initial Job Positions
+const initialJobPositions: JobPosition[] = [
   {
     id: '1',
-    name: 'Primary Care',
-    slug: 'primary-care',
-    category: 'General',
-    description: 'Comprehensive primary care services for patients of all ages. Our experienced physicians provide preventive care, routine check-ups, and management of chronic conditions.',
-    shortDescription: 'Comprehensive health services for all ages',
-    price: 150,
-    duration: 30,
+    title: 'Registered Nurse',
+    slug: 'registered-nurse',
+    department: 'Nursing',
+    location: 'New York, NY',
+    jobType: 'full-time',
+    experienceLevel: 'mid',
+    salary: { min: 65000, max: 85000, currency: 'USD' },
+    description: 'We are seeking experienced Registered Nurses to join our dynamic healthcare team. Provide compassionate patient care and work alongside dedicated medical professionals.',
+    requirements: [
+      'Current RN License',
+      '2+ years of nursing experience',
+      'BScN or equivalent',
+      'Strong communication skills',
+      'ACLS Certification'
+    ],
+    benefits: [
+      'Competitive salary and benefits',
+      '401(k) matching',
+      'Health insurance',
+      'Paid time off',
+      'Professional development opportunities'
+    ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800',
-    icon: 'Heart',
+    featuredImage: 'https://images.unsplash.com/photo-1632925686637-d32aaded46e3?w=800',
+    applicationsCount: 12,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
   {
     id: '2',
-    name: 'Specialist Consultations',
-    slug: 'specialist-consultations',
-    category: 'Specialist',
-    description: 'Access to a wide range of medical specialists including cardiologists, dermatologists, orthopedists, and more. Get expert opinions and specialized treatment plans.',
-    shortDescription: 'Expert consultations across specialties',
-    price: 250,
-    duration: 45,
+    title: 'Physician Assistant',
+    slug: 'physician-assistant',
+    department: 'Clinical',
+    location: 'Los Angeles, CA',
+    jobType: 'full-time',
+    experienceLevel: 'mid',
+    salary: { min: 110000, max: 140000, currency: 'USD' },
+    description: 'Join our medical team as a Physician Assistant. Diagnose and treat patients, order tests, prescribe medications, and assist in surgical procedures.',
+    requirements: [
+      'Master\'s degree in PA Studies',
+      'PA-C certification',
+      '3+ years clinical experience',
+      'State PA license',
+      'Strong diagnostic skills'
+    ],
+    benefits: [
+      'Excellent compensation package',
+      'Comprehensive health insurance',
+      'CME allowance',
+      'Retirement plans',
+      'Flexible scheduling'
+    ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800',
-    icon: 'Stethoscope',
+    featuredImage: 'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800',
+    applicationsCount: 8,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
   {
     id: '3',
-    name: 'Preventive Health Screening',
-    slug: 'preventive-screening',
-    category: 'Preventive',
-    description: 'Comprehensive health screenings to detect potential health issues early. Includes blood work, imaging, and complete physical examinations.',
-    shortDescription: 'Early detection for better health outcomes',
-    price: 350,
-    duration: 60,
+    title: 'Medical Technologist',
+    slug: 'medical-technologist',
+    department: 'Laboratory',
+    location: 'Chicago, IL',
+    jobType: 'full-time',
+    experienceLevel: 'entry',
+    salary: { min: 40000, max: 55000, currency: 'USD' },
+    description: 'Perform laboratory tests and analysis to help in the diagnosis and treatment of diseases. Work with state-of-the-art equipment in a modern facility.',
+    requirements: [
+      'Bachelor\'s degree in Medical Technology',
+      'ASCP MT(ASCP) certification',
+      'Attention to detail',
+      'Ability to work in a fast-paced environment',
+      'Knowledge of laboratory safety'
+    ],
+    benefits: [
+      'Starting salary competitive',
+      'Health and dental insurance',
+      'Shift differentials',
+      'Tuition reimbursement',
+      'Continuing education support'
+    ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800',
-    icon: 'Shield',
+    featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800',
+    applicationsCount: 5,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
   {
     id: '4',
-    name: 'Mental Health Services',
-    slug: 'mental-health',
-    category: 'Mental Health',
-    description: 'Compassionate mental health care including counseling, therapy, and psychiatric services. We support your mental wellness journey.',
-    shortDescription: 'Supporting your mental wellness',
-    price: 200,
-    duration: 50,
+    title: 'Pharmacy Technician',
+    slug: 'pharmacy-technician',
+    department: 'Pharmacy',
+    location: 'Houston, TX',
+    jobType: 'part-time',
+    experienceLevel: 'entry',
+    salary: { min: 28000, max: 38000, currency: 'USD' },
+    description: 'Assist pharmacists in dispensing medications and managing pharmacy operations. Ensure accuracy and patient safety in all transactions.',
+    requirements: [
+      'High school diploma or GED',
+      'Pharmacy Technician Certification',
+      'Reliable and detail-oriented',
+      'Customer service experience',
+      'Ability to lift up to 50 lbs'
+    ],
+    benefits: [
+      'Flexible scheduling',
+      'Employee discount on medications',
+      'Health insurance',
+      'Paid training',
+      'Career advancement opportunities'
+    ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800',
-    icon: 'Brain',
+    featuredImage: 'https://images.unsplash.com/photo-1587854692152-cbe660dbde0f?w=800',
+    applicationsCount: 15,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
   {
     id: '5',
-    name: 'Telehealth Consultations',
-    slug: 'telehealth',
-    category: 'Virtual',
-    description: 'Convenient virtual consultations from the comfort of your home. Connect with our healthcare providers through secure video calls.',
-    shortDescription: 'Healthcare from anywhere',
-    price: 100,
-    duration: 30,
+    title: 'Medical Receptionist',
+    slug: 'medical-receptionist',
+    department: 'Administration',
+    location: 'Miami, FL',
+    jobType: 'full-time',
+    experienceLevel: 'entry',
+    salary: { min: 30000, max: 40000, currency: 'USD' },
+    description: 'Welcome patients, schedule appointments, and handle administrative tasks. Be the first point of contact for patients visiting our healthcare facility.',
+    requirements: [
+      'High school diploma or GED',
+      'Customer service experience',
+      'Proficiency with medical scheduling software',
+      'Excellent communication skills',
+      'Bilingual a plus'
+    ],
+    benefits: [
+      'Competitive salary',
+      'Health insurance',
+      'Paid holidays and vacation',
+      'Professional development',
+      'Friendly work environment'
+    ],
     isActive: true,
     featuredImage: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800',
-    icon: 'Video',
+    applicationsCount: 10,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
   {
     id: '6',
-    name: 'Laboratory Services',
-    slug: 'laboratory',
-    category: 'Diagnostics',
-    description: 'State-of-the-art laboratory services with quick turnaround times. Comprehensive testing including blood work, urinalysis, and specialized tests.',
-    shortDescription: 'Accurate diagnostics, fast results',
-    price: 75,
-    duration: 15,
+    title: 'Physical Therapist',
+    slug: 'physical-therapist',
+    department: 'Rehabilitation',
+    location: 'Seattle, WA',
+    jobType: 'full-time',
+    experienceLevel: 'mid',
+    salary: { min: 75000, max: 100000, currency: 'USD' },
+    description: 'Help patients recover from injuries and disabilities through therapeutic exercises and treatments. Work in a collaborative healthcare environment.',
+    requirements: [
+      'DPT from accredited program',
+      'State PT license',
+      '2+ years practice experience',
+      'Strong patient communication skills',
+      'Knowledge of therapeutic modalities'
+    ],
+    benefits: [
+      'Competitive compensation',
+      'Comprehensive benefits package',
+      'Continuing education funds',
+      'Flexible hours',
+      'Team environment'
+    ],
     isActive: true,
-    featuredImage: 'https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800',
-    icon: 'FlaskConical',
+    featuredImage: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800',
+    applicationsCount: 6,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
 ];
 
-const initialTeamMembers: TeamMember[] = [
-  {
-    id: '1',
-    name: 'Dr. Sarah Johnson',
-    role: 'Chief Medical Officer',
-    department: 'Administration',
-    bio: 'Dr. Johnson brings over 20 years of experience in internal medicine and healthcare administration. She is passionate about patient-centered care.',
-    qualifications: ['MD - Harvard Medical School', 'MBA - Stanford University', 'Board Certified Internal Medicine'],
-    specializations: ['Internal Medicine', 'Healthcare Administration'],
-    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400',
-    email: 'sarah.johnson@vortexcare.com',
-    phone: '+1 (555) 123-4567',
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    name: 'Dr. Michael Chen',
-    role: 'Head of Cardiology',
-    department: 'Cardiology',
-    bio: 'Dr. Chen is a renowned cardiologist with expertise in interventional cardiology and heart failure management.',
-    qualifications: ['MD - Johns Hopkins University', 'Fellowship in Cardiology - Mayo Clinic'],
-    specializations: ['Interventional Cardiology', 'Heart Failure', 'Preventive Cardiology'],
-    image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400',
-    email: 'michael.chen@vortexcare.com',
-    phone: '+1 (555) 123-4568',
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '3',
-    name: 'Dr. Emily Rodriguez',
-    role: 'Pediatric Specialist',
-    department: 'Pediatrics',
-    bio: 'Dr. Rodriguez specializes in pediatric care and developmental medicine. She loves working with children and their families.',
-    qualifications: ['MD - UCLA Medical School', 'Pediatric Residency - Children\'s Hospital Los Angeles'],
-    specializations: ['General Pediatrics', 'Developmental Medicine', 'Adolescent Health'],
-    image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400',
-    email: 'emily.rodriguez@vortexcare.com',
-    phone: '+1 (555) 123-4569',
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '4',
-    name: 'Dr. James Williams',
-    role: 'Mental Health Director',
-    department: 'Psychiatry',
-    bio: 'Dr. Williams leads our mental health services with compassion and expertise in treating various mental health conditions.',
-    qualifications: ['MD - Columbia University', 'Psychiatry Residency - NYU Langone'],
-    specializations: ['Psychiatry', 'Cognitive Behavioral Therapy', 'Anxiety & Depression'],
-    image: 'https://images.unsplash.com/photo-1537368910025-700350fe46c7?w=400',
-    email: 'james.williams@vortexcare.com',
-    phone: '+1 (555) 123-4570',
-    isActive: true,
-    createdAt: new Date().toISOString(),
-  },
-];
-
-const initialTestimonials: Testimonial[] = [
-  {
-    id: '1',
-    patientName: 'Jennifer M.',
-    rating: 5,
-    content: 'Vortex Care Support has completely transformed my healthcare experience. The staff is incredibly caring and the doctors take time to really listen.',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150',
-    isApproved: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    patientName: 'Robert K.',
-    rating: 5,
-    content: 'The telehealth service is a game-changer! I was able to consult with a specialist from my home. Highly recommend their services.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
-    isApproved: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '3',
-    patientName: 'Maria S.',
-    rating: 5,
-    content: 'As a busy mom, I appreciate how easy it is to book appointments and access my family\'s medical records online. Excellent service!',
-    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
-    isApproved: true,
-    createdAt: new Date().toISOString(),
-  },
-];
-
 const initialSettings: SiteSettings = {
-  siteName: 'Vortex Care Support LTD',
-  tagline: 'Excellence in Healthcare',
-  description: 'Providing comprehensive healthcare services with compassion and expertise.',
+  siteName: 'Vortex Healthcare Careers',
+  tagline: 'Join Our Healthcare Team',
+  description: 'Discover exciting career opportunities in healthcare. We\'re seeking talented professionals to join our growing organization.',
   phone: '+1 (555) 123-4567',
-  email: 'info@vortexcare.com',
+  email: 'careers@vortexcare.com',
   address: '123 Healthcare Blvd, Medical City, MC 12345',
-  operatingHours: 'Monday - Friday: 8:00 AM - 8:00 PM | Saturday: 9:00 AM - 5:00 PM | Sunday: Closed',
-  emergencyContact: '+1 (555) 911-0000',
+  operatingHours: 'Monday - Friday: 9:00 AM - 6:00 PM',
+  emergencyContact: '+1 (555) 123-4567',
   socialLinks: {
-    facebook: 'https://facebook.com/vortexcare',
-    twitter: 'https://twitter.com/vortexcare',
+    facebook: 'https://facebook.com/vortexcareers',
+    twitter: 'https://twitter.com/vortexcareers',
     linkedin: 'https://linkedin.com/company/vortexcare',
-    instagram: 'https://instagram.com/vortexcare',
+    instagram: 'https://instagram.com/vortexcareers',
   },
 };
 
 interface DataState {
-  services: Service[];
-  appointments: Appointment[];
-  patients: Patient[];
-  teamMembers: TeamMember[];
-  testimonials: Testimonial[];
-  blogPosts: BlogPost[];
+  jobPositions: JobPosition[];
+  jobApplications: JobApplication[];
   contactMessages: ContactMessage[];
-  auditLogs: AuditLog[];
   settings: SiteSettings;
   
-  // Services
-  addService: (service: Omit<Service, 'id' | 'createdAt' | 'updatedAt'>) => void;
-  updateService: (id: string, data: Partial<Service>) => void;
-  deleteService: (id: string) => void;
+  // Job Positions
+  addJobPosition: (position: Omit<JobPosition, 'id' | 'createdAt' | 'updatedAt'>) => void;
+  updateJobPosition: (id: string, data: Partial<JobPosition>) => void;
+  deleteJobPosition: (id: string) => void;
   
-  // Appointments
-  addAppointment: (appointment: Omit<Appointment, 'id' | 'createdAt' | 'updatedAt'>) => Appointment;
-  updateAppointment: (id: string, data: Partial<Appointment>) => void;
-  deleteAppointment: (id: string) => void;
-  
-  // Patients
-  addPatient: (patient: Omit<Patient, 'id' | 'createdAt' | 'updatedAt'>) => Patient;
-  updatePatient: (id: string, data: Partial<Patient>) => void;
-  deletePatient: (id: string) => void;
-  
-  // Team Members
-  addTeamMember: (member: Omit<TeamMember, 'id' | 'createdAt'>) => void;
-  updateTeamMember: (id: string, data: Partial<TeamMember>) => void;
-  deleteTeamMember: (id: string) => void;
-  
-  // Testimonials
-  addTestimonial: (testimonial: Omit<Testimonial, 'id' | 'createdAt'>) => void;
-  updateTestimonial: (id: string, data: Partial<Testimonial>) => void;
-  deleteTestimonial: (id: string) => void;
-  
-  // Blog Posts
-  addBlogPost: (post: Omit<BlogPost, 'id' | 'createdAt' | 'updatedAt'>) => void;
-  updateBlogPost: (id: string, data: Partial<BlogPost>) => void;
-  deleteBlogPost: (id: string) => void;
+  // Job Applications
+  addJobApplication: (application: Omit<JobApplication, 'id' | 'createdAt' | 'updatedAt'>) => JobApplication;
+  updateJobApplication: (id: string, data: Partial<JobApplication>) => void;
+  deleteJobApplication: (id: string) => void;
   
   // Contact Messages
   addContactMessage: (message: Omit<ContactMessage, 'id' | 'createdAt' | 'isRead'>) => void;
   markMessageAsRead: (id: string) => void;
   deleteContactMessage: (id: string) => void;
-  
-  // Audit Logs
-  addAuditLog: (log: Omit<AuditLog, 'id' | 'createdAt'>) => void;
   
   // Settings
   updateSettings: (settings: Partial<SiteSettings>) => void;
@@ -258,128 +231,54 @@ interface DataState {
 export const useDataStore = create<DataState>()(
   persist(
     (set) => ({
-      services: initialServices,
-      appointments: [],
-      patients: [],
-      teamMembers: initialTeamMembers,
-      testimonials: initialTestimonials,
-      blogPosts: [],
+      jobPositions: initialJobPositions,
+      jobApplications: [],
       contactMessages: [],
-      auditLogs: [],
       settings: initialSettings,
 
-      // Services
-      addService: (service) => set((state) => ({
-        services: [...state.services, {
-          ...service,
+      // Job Positions
+      addJobPosition: (position) => set((state) => ({
+        jobPositions: [...state.jobPositions, {
+          ...position,
           id: Date.now().toString(),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         }],
       })),
-      updateService: (id, data) => set((state) => ({
-        services: state.services.map(s =>
-          s.id === id ? { ...s, ...data, updatedAt: new Date().toISOString() } : s
+      updateJobPosition: (id, data) => set((state) => ({
+        jobPositions: state.jobPositions.map(p =>
+          p.id === id ? { ...p, ...data, updatedAt: new Date().toISOString() } : p
         ),
       })),
-      deleteService: (id) => set((state) => ({
-        services: state.services.filter(s => s.id !== id),
+      deleteJobPosition: (id) => set((state) => ({
+        jobPositions: state.jobPositions.filter(p => p.id !== id),
       })),
 
-      // Appointments
-      addAppointment: (appointment) => {
-        const newAppointment: Appointment = {
-          ...appointment,
+      // Job Applications
+      addJobApplication: (application) => {
+        const newApplication: JobApplication = {
+          ...application,
           id: Date.now().toString(),
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         };
         set((state) => ({
-          appointments: [...state.appointments, newAppointment],
+          jobApplications: [...state.jobApplications, newApplication],
+          jobPositions: state.jobPositions.map(p =>
+            p.id === application.jobPositionId
+              ? { ...p, applicationsCount: p.applicationsCount + 1 }
+              : p
+          ),
         }));
-        return newAppointment;
+        return newApplication;
       },
-      updateAppointment: (id, data) => set((state) => ({
-        appointments: state.appointments.map(a =>
+      updateJobApplication: (id, data) => set((state) => ({
+        jobApplications: state.jobApplications.map(a =>
           a.id === id ? { ...a, ...data, updatedAt: new Date().toISOString() } : a
         ),
       })),
-      deleteAppointment: (id) => set((state) => ({
-        appointments: state.appointments.filter(a => a.id !== id),
-      })),
-
-      // Patients
-      addPatient: (patient) => {
-        const newPatient: Patient = {
-          ...patient,
-          id: Date.now().toString(),
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        };
-        set((state) => ({
-          patients: [...state.patients, newPatient],
-        }));
-        return newPatient;
-      },
-      updatePatient: (id, data) => set((state) => ({
-        patients: state.patients.map(p =>
-          p.id === id ? { ...p, ...data, updatedAt: new Date().toISOString() } : p
-        ),
-      })),
-      deletePatient: (id) => set((state) => ({
-        patients: state.patients.filter(p => p.id !== id),
-      })),
-
-      // Team Members
-      addTeamMember: (member) => set((state) => ({
-        teamMembers: [...state.teamMembers, {
-          ...member,
-          id: Date.now().toString(),
-          createdAt: new Date().toISOString(),
-        }],
-      })),
-      updateTeamMember: (id, data) => set((state) => ({
-        teamMembers: state.teamMembers.map(t =>
-          t.id === id ? { ...t, ...data } : t
-        ),
-      })),
-      deleteTeamMember: (id) => set((state) => ({
-        teamMembers: state.teamMembers.filter(t => t.id !== id),
-      })),
-
-      // Testimonials
-      addTestimonial: (testimonial) => set((state) => ({
-        testimonials: [...state.testimonials, {
-          ...testimonial,
-          id: Date.now().toString(),
-          createdAt: new Date().toISOString(),
-        }],
-      })),
-      updateTestimonial: (id, data) => set((state) => ({
-        testimonials: state.testimonials.map(t =>
-          t.id === id ? { ...t, ...data } : t
-        ),
-      })),
-      deleteTestimonial: (id) => set((state) => ({
-        testimonials: state.testimonials.filter(t => t.id !== id),
-      })),
-
-      // Blog Posts
-      addBlogPost: (post) => set((state) => ({
-        blogPosts: [...state.blogPosts, {
-          ...post,
-          id: Date.now().toString(),
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        }],
-      })),
-      updateBlogPost: (id, data) => set((state) => ({
-        blogPosts: state.blogPosts.map(p =>
-          p.id === id ? { ...p, ...data, updatedAt: new Date().toISOString() } : p
-        ),
-      })),
-      deleteBlogPost: (id) => set((state) => ({
-        blogPosts: state.blogPosts.filter(p => p.id !== id),
+      deleteJobApplication: (id) => set((state) => ({
+        jobApplications: state.jobApplications.filter(a => a.id !== id),
       })),
 
       // Contact Messages
@@ -400,25 +299,13 @@ export const useDataStore = create<DataState>()(
         contactMessages: state.contactMessages.filter(m => m.id !== id),
       })),
 
-      // Audit Logs
-      addAuditLog: (log) => set((state) => ({
-        auditLogs: [
-          {
-            ...log,
-            id: Date.now().toString(),
-            createdAt: new Date().toISOString(),
-          },
-          ...state.auditLogs,
-        ].slice(0, 1000), // Keep only last 1000 logs
-      })),
-
       // Settings
       updateSettings: (settings) => set((state) => ({
         settings: { ...state.settings, ...settings },
       })),
     }),
     {
-      name: 'vortex-data',
+      name: 'vortex-recruitment-data',
     }
   )
 );

@@ -11,14 +11,14 @@ interface AuthState {
   updateUser: (data: Partial<User>) => void;
 }
 
-// Default admin and sample users
+// Default admin and sample users (credentials stored securely, not displayed in UI)
 const defaultUsers: User[] = [
   {
     id: '1',
-    email: 'ayoluwanimi@gmail.com',
-    password: 'University@1',
-    firstName: 'Ayoluwa',
-    lastName: 'Nimi',
+    email: 'admin@vortexcare.com',
+    password: 'SecureAdmin@2025',
+    firstName: 'Admin',
+    lastName: 'User',
     phone: '+1234567890',
     role: 'super_admin',
     department: 'Administration',

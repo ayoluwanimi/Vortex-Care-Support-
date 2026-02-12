@@ -1,13 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from '@/components/Layout';
 import { HomePage } from '@/pages/HomePage';
-import { ServicesPage } from '@/pages/ServicesPage';
-import { BookAppointmentPage } from '@/pages/BookAppointmentPage';
+import { JobsPage } from '@/pages/JobsPage';
+import { JobApplicationPage } from '@/pages/JobApplicationPage';
 import { AboutPage } from '@/pages/AboutPage';
 import { ContactPage } from '@/pages/ContactPage';
 import { LoginPage, RegisterPage } from '@/pages/AuthPages';
 import { AdminDashboard } from '@/pages/AdminDashboard';
-import { PatientPortal } from '@/pages/PatientPortal';
 import { PrivacyPolicyPage, TermsOfServicePage, HIPAACompliancePage } from '@/pages/LegalPages';
 import { useAuthStore } from '@/store/authStore';
 
@@ -35,13 +34,13 @@ export function App() {
       <Routes>
         {/* Public Routes with Layout */}
         <Route path="/" element={<Layout><HomePage /></Layout>} />
-        <Route path="/services" element={<Layout><ServicesPage /></Layout>} />
-        <Route path="/book-appointment" element={<Layout><BookAppointmentPage /></Layout>} />
+        <Route path="/jobs" element={<Layout><JobsPage /></Layout>} />
         <Route path="/about" element={<Layout><AboutPage /></Layout>} />
         <Route path="/contact" element={<Layout><ContactPage /></Layout>} />
         <Route path="/privacy-policy" element={<Layout><PrivacyPolicyPage /></Layout>} />
         <Route path="/terms-of-service" element={<Layout><TermsOfServicePage /></Layout>} />
         <Route path="/hipaa-compliance" element={<Layout><HIPAACompliancePage /></Layout>} />
+        <Route path="/apply/:jobId" element={<Layout><JobApplicationPage /></Layout>} />
         
         {/* Auth Routes (No Layout) */}
         <Route path="/login" element={<LoginPage />} />
@@ -53,16 +52,6 @@ export function App() {
           element={
             <ProtectedRoute adminOnly>
               <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        
-        {/* Patient Portal (Protected) */}
-        <Route
-          path="/patient-portal"
-          element={
-            <ProtectedRoute>
-              <PatientPortal />
             </ProtectedRoute>
           }
         />

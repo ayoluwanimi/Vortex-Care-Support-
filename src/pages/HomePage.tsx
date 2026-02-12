@@ -1,37 +1,33 @@
 import { Link } from 'react-router-dom';
 import { useDataStore } from '@/store/dataStore';
 import { 
-  ArrowRight, Calendar, Shield, Users, Award, Clock, CheckCircle,
-  Heart, Stethoscope, Brain, Video, FlaskConical, Star, Phone
+  ArrowRight, Briefcase, MapPin, Clock, Users, Award, Heart, Building2, 
+  CheckCircle, Star, Zap, TrendingUp
 } from 'lucide-react';
 
-const iconMap: Record<string, React.ReactNode> = {
-  Heart: <Heart className="w-8 h-8" />,
-  Stethoscope: <Stethoscope className="w-8 h-8" />,
-  Shield: <Shield className="w-8 h-8" />,
-  Brain: <Brain className="w-8 h-8" />,
-  Video: <Video className="w-8 h-8" />,
-  FlaskConical: <FlaskConical className="w-8 h-8" />,
-};
-
 export function HomePage() {
-  const { services, teamMembers, testimonials, settings } = useDataStore();
-  const activeServices = services.filter(s => s.isActive).slice(0, 6);
-  const activeTeam = teamMembers.filter(t => t.isActive).slice(0, 4);
-  const approvedTestimonials = testimonials.filter(t => t.isApproved);
+  const { jobPositions, settings } = useDataStore();
+  const activePositions = jobPositions.filter(p => p.isActive);
 
   const stats = [
-    { icon: <Users className="w-6 h-6" />, value: '50,000+', label: 'Patients Served' },
+    { icon: <Briefcase className="w-6 h-6" />, value: activePositions.length, label: 'Open Positions' },
+    { icon: <Users className="w-6 h-6" />, value: '500+', label: 'Healthcare Professionals' },
     { icon: <Award className="w-6 h-6" />, value: '25+', label: 'Years Experience' },
-    { icon: <Stethoscope className="w-6 h-6" />, value: '100+', label: 'Medical Experts' },
-    { icon: <Star className="w-6 h-6" />, value: '4.9', label: 'Patient Rating' },
+    { icon: <Building2 className="w-6 h-6" />, value: '15+', label: 'Locations' },
+  ];
+
+  const benefits = [
+    { icon: <Heart className="w-8 h-8" />, title: 'Health Benefits', description: 'Comprehensive medical, dental, and vision coverage' },
+    { icon: <TrendingUp className="w-8 h-8" />, title: 'Career Growth', description: 'Professional development and advancement opportunities' },
+    { icon: <Clock className="w-8 h-8" />, title: 'Flexible Schedule', description: 'Work-life balance with flexible working arrangements' },
+    { icon: <Award className="w-8 h-8" />, title: 'Competitive Pay', description: 'Industry-leading compensation packages' },
   ];
 
   return (
     <div>
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1920')] bg-cover bg-center opacity-10"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920')] bg-cover bg-center opacity-10"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-800/70"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 py-24 lg:py-32">
@@ -39,34 +35,34 @@ export function HomePage() {
             <div className="space-y-8">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm">
                 <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                <span className="text-sm font-medium">Trusted Healthcare Partner</span>
+                <span className="text-sm font-medium">Join Our Growing Team</span>
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Your Health Is Our{' '}
+                Build Your Career in{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-                  Top Priority
+                  Healthcare
                 </span>
               </h1>
               
               <p className="text-lg text-blue-100 max-w-xl">
-                At Vortex Care Support, we provide comprehensive healthcare services with compassion, 
-                expertise, and cutting-edge technology. Your wellness journey starts here.
+                Join Vortex Healthcare and make a difference in patients' lives. We're seeking dedicated healthcare professionals 
+                to join our innovative and compassionate team.
               </p>
               
               <div className="flex flex-wrap gap-4">
                 <Link
-                  to="/book-appointment"
+                  to="/jobs"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500 text-white font-semibold rounded-xl hover:bg-emerald-600 transition-all transform hover:scale-105 shadow-lg shadow-emerald-500/25"
                 >
-                  <Calendar size={20} />
-                  Book Appointment
+                  <Briefcase size={20} />
+                  Browse Positions
                 </Link>
                 <Link
-                  to="/services"
+                  to="/about"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 backdrop-blur-sm transition-colors border border-white/20"
                 >
-                  Explore Services
+                  Learn About Us
                   <ArrowRight size={20} />
                 </Link>
               </div>
@@ -80,8 +76,8 @@ export function HomePage() {
                   ))}
                 </div>
                 <div>
-                  <p className="font-semibold">Join 50,000+ patients</p>
-                  <p className="text-sm text-blue-200">who trust our care</p>
+                  <p className="font-semibold">Join 500+ Professionals</p>
+                  <p className="text-sm text-blue-200">working at Vortex Healthcare</p>
                 </div>
               </div>
             </div>
@@ -89,8 +85,8 @@ export function HomePage() {
             <div className="relative hidden lg:block">
               <div className="relative z-10">
                 <img
-                  src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?w=600"
-                  alt="Healthcare Professional"
+                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600"
+                  alt="Healthcare Team"
                   className="rounded-2xl shadow-2xl"
                 />
               </div>
@@ -100,19 +96,19 @@ export function HomePage() {
                     <CheckCircle className="w-6 h-6 text-emerald-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">24/7 Support</p>
-                    <p className="text-sm text-gray-500">Always here for you</p>
+                    <p className="font-semibold text-gray-900">Great Culture</p>
+                    <p className="text-sm text-gray-500">Work with dedicated professionals</p>
                   </div>
                 </div>
               </div>
               <div className="absolute -top-6 -right-6 bg-white rounded-xl shadow-xl p-4 z-20">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-blue-600" />
+                    <Zap className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">Quick Response</p>
-                    <p className="text-sm text-gray-500">Same day appointments</p>
+                    <p className="font-semibold text-gray-900">Growing Fast</p>
+                    <p className="text-sm text-gray-500">New opportunities daily</p>
                   </div>
                 </div>
               </div>
@@ -145,44 +141,67 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Featured Positions Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-4">
-              Our Services
+              Open Positions
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Comprehensive Healthcare Solutions
+              Explore Available Job Opportunities
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              We offer a wide range of medical services to meet all your healthcare needs under one roof.
+              We're hiring talented healthcare professionals across multiple departments and locations.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {activeServices.map(service => (
-              <div key={service.id} className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group">
+            {activePositions.slice(0, 6).map(position => (
+              <div key={position.id} className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group">
                 <div className="h-48 overflow-hidden">
                   <img
-                    src={service.featuredImage}
-                    alt={service.name}
+                    src={position.featuredImage}
+                    alt={position.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4 -mt-12 relative z-10 border-4 border-white shadow-md">
-                    {iconMap[service.icon] || <Heart className="w-6 h-6" />}
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{position.title}</h3>
+                  
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center gap-2 text-gray-600 text-sm">
+                      <MapPin size={16} />
+                      {position.location}
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-600 text-sm">
+                      <Clock size={16} />
+                      {position.jobType.replace('-', ' ')}
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-600 text-sm">
+                      <Building2 size={16} />
+                      {position.department}
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.name}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{service.shortDescription}</p>
+
+                  <div className="mb-4 pb-4 border-b">
+                    <p className="text-2xl font-bold text-emerald-600">
+                      ${position.salary.min.toLocaleString()} - ${position.salary.max.toLocaleString()}
+                    </p>
+                    <p className="text-xs text-gray-500">{position.salary.currency}/year</p>
+                  </div>
+
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">{position.description}</p>
+
                   <div className="flex items-center justify-between">
-                    <span className="text-blue-600 font-semibold">${service.price}</span>
+                    <span className="text-xs text-blue-600 font-medium">
+                      {position.applicationsCount} applications
+                    </span>
                     <Link
-                      to={`/book-appointment?service=${service.id}`}
+                      to={`/apply/${position.id}`}
                       className="text-blue-600 font-medium hover:text-blue-700 flex items-center gap-1"
                     >
-                      Book Now <ArrowRight size={16} />
+                      Apply Now <ArrowRight size={16} />
                     </Link>
                   </div>
                 </div>
@@ -192,158 +211,34 @@ export function HomePage() {
 
           <div className="text-center mt-10">
             <Link
-              to="/services"
+              to="/jobs"
               className="inline-flex items-center gap-2 px-8 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
             >
-              View All Services
+              View All Positions
               <ArrowRight size={20} />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
+      {/* Why Join Us Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <img
-                src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600"
-                alt="About Vortex Care"
-                className="rounded-2xl shadow-xl"
-              />
-              <div className="absolute -bottom-6 -right-6 bg-emerald-500 text-white rounded-2xl p-6 shadow-lg">
-                <p className="text-4xl font-bold">25+</p>
-                <p className="text-emerald-100">Years of Excellence</p>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <span className="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium">
-                About Us
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                Dedicated to Your Health & Wellbeing
-              </h2>
-              <p className="text-gray-600">
-                {settings.description} With over 25 years of experience, we have been serving our community with 
-                dedication and excellence. Our team of healthcare professionals is committed to providing 
-                personalized care that meets your unique needs.
-              </p>
-
-              <div className="space-y-4">
-                {[
-                  'State-of-the-art medical facilities',
-                  'Board-certified physicians and specialists',
-                  'Personalized treatment plans',
-                  'Compassionate patient care',
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-emerald-500 flex-shrink-0" />
-                    <span className="text-gray-700">{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
-              >
-                Learn More About Us
-                <ArrowRight size={20} />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-4">
-              Our Team
-            </span>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Meet Our Expert Doctors
+              Why Join Vortex Healthcare?
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Our team of experienced healthcare professionals is dedicated to providing you with the best possible care.
+              We offer a supportive environment where you can grow, develop, and make a real impact on patients' lives.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {activeTeam.map(member => (
-              <div key={member.id} className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group">
-                <div className="h-64 overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-lg font-semibold text-gray-900">{member.name}</h3>
-                  <p className="text-blue-600 text-sm mb-2">{member.role}</p>
-                  <p className="text-gray-500 text-sm">{member.department}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-10">
-            <Link
-              to="/about#team"
-              className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700"
-            >
-              View Full Team
-              <ArrowRight size={20} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 bg-blue-900 text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1 bg-white/10 text-blue-200 rounded-full text-sm font-medium mb-4">
-              Testimonials
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              What Our Patients Say
-            </h2>
-            <p className="text-blue-200 max-w-2xl mx-auto">
-              Don't just take our word for it. Hear from our satisfied patients about their experience with us.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {approvedTestimonials.map(testimonial => (
-              <div key={testimonial.id} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={18}
-                      className={i < testimonial.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-400'}
-                    />
-                  ))}
-                </div>
-                <p className="text-blue-100 mb-6 italic">"{testimonial.content}"</p>
-                <div className="flex items-center gap-3">
-                  {testimonial.image ? (
-                    <img src={testimonial.image} alt={testimonial.patientName} className="w-12 h-12 rounded-full object-cover" />
-                  ) : (
-                    <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center font-bold">
-                      {testimonial.patientName.charAt(0)}
-                    </div>
-                  )}
-                  <div>
-                    <p className="font-semibold">{testimonial.patientName}</p>
-                    <p className="text-sm text-blue-200">Verified Patient</p>
-                  </div>
-                </div>
+            {benefits.map((benefit, index) => (
+              <div key={index} className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow">
+                <div className="text-emerald-500 mb-4">{benefit.icon}</div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">{benefit.title}</h3>
+                <p className="text-gray-600 text-sm">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -351,31 +246,20 @@ export function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white">
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-emerald-500 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Take the First Step?
-          </h2>
+          <h2 className="text-4xl font-bold mb-6">Ready to Launch Your Healthcare Career?</h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            Schedule your appointment today and experience healthcare that puts you first. 
-            Our team is ready to help you on your journey to better health.
+            Join hundreds of healthcare professionals who have found their calling at Vortex Healthcare. 
+            Start your journey with us today.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              to="/book-appointment"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-emerald-600 font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-lg"
-            >
-              <Calendar size={20} />
-              Schedule Appointment
-            </Link>
-            <a
-              href={`tel:${settings.phone}`}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition-colors backdrop-blur-sm border border-white/30"
-            >
-              <Phone size={20} />
-              Call Us Now
-            </a>
-          </div>
+          <Link
+            to="/jobs"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-100 transition-colors shadow-lg"
+          >
+            Browse Our Open Positions
+            <ArrowRight size={20} />
+          </Link>
         </div>
       </section>
     </div>

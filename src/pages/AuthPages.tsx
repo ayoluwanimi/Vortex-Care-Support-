@@ -136,11 +136,6 @@ export function LoginPage() {
             </Link>
           </div>
         </div>
-
-        <div className="mt-6 p-4 bg-blue-50 rounded-xl text-sm">
-          <p className="text-blue-800 font-medium mb-2">Demo Credentials:</p>
-          <p className="text-blue-700">Admin: ayoluwanimi@gmail.com / University@1</p>
-        </div>
       </div>
     </div>
   );
