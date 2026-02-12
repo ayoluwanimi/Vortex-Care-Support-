@@ -76,8 +76,7 @@ export function Layout({ children }: LayoutProps) {
                 <span className="text-white font-bold text-xl">V</span>
               </div>
               <div>
-                <h1 className="font-bold text-xl text-gray-900">Vortex Care and Support</h1>
-                <p className="text-xs text-gray-500">LTD</p>
+                <h1 className="font-bold text-xl text-gray-900">Vortex Care and Support LTD</h1>
               </div>
             </Link>
 
@@ -262,8 +261,7 @@ export function Layout({ children }: LayoutProps) {
                   <span className="text-white font-bold">V</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">Vortex Care and Support</h3>
-                  <p className="text-xs text-gray-400">LTD</p>
+                  <h3 className="font-bold text-lg">Vortex Care and Support LTD</h3>
                 </div>
               </div>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">

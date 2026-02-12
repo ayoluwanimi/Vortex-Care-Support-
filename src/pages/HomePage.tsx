@@ -46,7 +46,7 @@ export function HomePage() {
               </h1>
               
               <p className="text-lg text-blue-100 max-w-xl">
-                Join Vortex Healthcare and make a difference in patients' lives. We're seeking dedicated healthcare professionals 
+                Join Vortex Care and Support LTD and make a difference in patients' lives. We're seeking dedicated healthcare professionals 
                 to join our innovative and compassionate team.
               </p>
               
@@ -77,7 +77,7 @@ export function HomePage() {
                 </div>
                 <div>
                   <p className="font-semibold">Join 500+ Professionals</p>
-                  <p className="text-sm text-blue-200">working at Vortex Healthcare</p>
+                  <p className="text-sm text-blue-200">working at Vortex Care and Support LTD</p>
                 </div>
               </div>
             </div>
@@ -226,7 +226,7 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Join Vortex Healthcare?
+              Why Join Vortex Care and Support LTD?
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               We offer a supportive environment where you can grow, develop, and make a real impact on patients' lives.
@@ -250,7 +250,7 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Launch Your Healthcare Career?</h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-            Join hundreds of healthcare professionals who have found their calling at Vortex Healthcare. 
+            Join hundreds of healthcare professionals who have found their calling at Vortex Care and Support LTD. 
             Start your journey with us today.
           </p>
           <Link

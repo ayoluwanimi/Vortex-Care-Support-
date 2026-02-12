@@ -59,7 +59,7 @@ export function LoginPage() {
               <span className="text-white font-bold text-xl">V</span>
             </div>
             <div className="text-left">
-              <h1 className="font-bold text-xl text-gray-900">Vortex Care and Support</h1>
+              <h1 className="font-bold text-xl text-gray-900">Vortex Care and Support LTD</h1>
               <p className="text-xs text-gray-500">LTD</p>
             </div>
           </Link>
@@ -176,12 +176,12 @@ export function RegisterPage() {
               <span className="text-white font-bold text-xl">V</span>
             </div>
             <div className="text-left">
-              <h1 className="font-bold text-xl text-gray-900">Vortex Care and Support</h1>
+              <h1 className="font-bold text-xl text-gray-900">Vortex Care and Support LTD</h1>
               <p className="text-xs text-gray-500">LTD</p>
             </div>
           </Link>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Create an account</h2>
-          <p className="text-gray-600">Join Vortex Care and Support today</p>
+          <p className="text-gray-600">Join Vortex Care and Support LTD today</p>
         </div>
 
         <div className="bg-white rounded-2xl shadow-xl p-8">

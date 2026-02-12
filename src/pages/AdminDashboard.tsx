@@ -226,7 +226,7 @@ export function AdminDashboard() {
             </div>
             {sidebarOpen && (
               <div>
-                <h1 className="font-bold">Vortex Care and Support</h1>
+                <h1 className="font-bold">Vortex Care and Support LTD</h1>
                 <p className="text-xs text-gray-400">Admin</p>
               </div>
             )}
