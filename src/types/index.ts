@@ -188,10 +188,36 @@ export interface JobApplication {
   coverLetter: string;
   qualifications: string;
   yearsOfExperience: number;
+  cvFile?: {
+    name: string;
+    size: number;
+    type: string;
+    base64: string;
+    uploadedAt: string;
+  };
+  coverLetterFile?: {
+    name: string;
+    size: number;
+    type: string;
+    base64: string;
+    uploadedAt: string;
+  };
   status: 'submitted' | 'under-review' | 'shortlisted' | 'rejected' | 'offered' | 'hired';
   notes?: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ApplicationNotification {
+  id: string;
+  applicationId: string;
+  applicantName: string;
+  jobTitle: string;
+  applicantEmail: string;
+  message: string;
+  isRead: boolean;
+  emailSent: boolean;
+  createdAt: string;
 }
 
 export interface SiteSettings {

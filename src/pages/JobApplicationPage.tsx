@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useDataStore } from '@/store/dataStore';
-import { ArrowLeft, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowLeft, CheckCircle, AlertCircle, Upload, X, FileText } from 'lucide-react';
 
 const applicationSchema = z.object({
   applicantName: z.string().min(2, 'Name is required'),
@@ -18,12 +18,23 @@ const applicationSchema = z.object({
 
 type ApplicationFormData = z.infer<typeof applicationSchema>;
 
+interface FileUpload {
+  name: string;
+  size: number;
+  type: string;
+  base64: string;
+}
+
 export function JobApplicationPage() {
   const { jobId } = useParams();
   const navigate = useNavigate();
   const { jobPositions, addJobApplication } = useDataStore();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [cvFile, setCvFile] = useState<FileUpload | null>(null);
+  const [coverLetterFile, setCoverLetterFile] = useState<FileUpload | null>(null);
+  const cvInputRef = useRef<HTMLInputElement>(null);
+  const coverLetterInputRef = useRef<HTMLInputElement>(null);
 
   const job = jobPositions.find(p => p.id === jobId);
 
@@ -47,6 +58,45 @@ export function JobApplicationPage() {
     );
   }
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, isCV: boolean) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Check file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      setError('File size must be less than 10MB');
+      return;
+    }
+
+    // Allowed file types
+    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+    
+    if (!allowedTypes.includes(file.type)) {
+      setError('File type not supported. Please upload PDF, Word, Text, or Excel files.');
+      return;
+    }
+
+    // Convert file to base64
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const base64 = e.target?.result as string;
+      const fileData: FileUpload = {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        base64: base64,
+      };
+
+      if (isCV) {
+        setCvFile(fileData);
+      } else {
+        setCoverLetterFile(fileData);
+      }
+      setError('');
+    };
+    reader.readAsDataURL(file);
+  };
+
   const onSubmit = async (data: ApplicationFormData) => {
     setError('');
     try {
@@ -60,6 +110,8 @@ export function JobApplicationPage() {
         coverLetter: data.coverLetter,
         qualifications: data.qualifications,
         yearsOfExperience: data.yearsOfExperience,
+        cvFile: cvFile || undefined,
+        coverLetterFile: coverLetterFile || undefined,
         status: 'submitted',
       });
       setSubmitted(true);
@@ -78,7 +130,7 @@ export function JobApplicationPage() {
             Thank you for applying for the {job.title} position. We'll review your application and contact you soon.
           </p>
           <p className="text-sm text-gray-500 mb-6">
-            A confirmation has been sent to your email address.
+            A confirmation has been sent to your email address, and a notification has been sent to our admin team.
           </p>
           <div className="space-y-3">
             <Link
@@ -116,7 +168,7 @@ export function JobApplicationPage() {
             <span>•</span>
             <span className="capitalize">{job.jobType.replace('-', ' ')}</span>
             <span>•</span>
-            <span>${job.salary.min.toLocaleString()} - ${job.salary.max.toLocaleString()}</span>
+            <span>£{job.salary.min.toLocaleString()} - £{job.salary.max.toLocaleString()}</span>
           </div>
         </div>
 
@@ -165,7 +217,7 @@ export function JobApplicationPage() {
                   type="tel"
                   {...register('applicantPhone')}
                   className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-                  placeholder="+1 (555) 123-4567"
+                  placeholder="+44 (0)20 1234 5678"
                 />
                 {errors.applicantPhone && <p className="text-red-500 text-sm mt-1">{errors.applicantPhone.message}</p>}
               </div>
@@ -209,18 +261,103 @@ export function JobApplicationPage() {
             <div className="border-b pb-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Resume & Cover Letter</h3>
               
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Resume/CV *</label>
+              {/* CV Upload */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Upload CV/Resume * (PDF, Word, Text)</label>
+                <div className="space-y-3">
+                  {cvFile ? (
+                    <div className="flex items-center justify-between p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                      <div className="flex items-center gap-2">
+                        <FileText className="text-emerald-600" size={20} />
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{cvFile.name}</p>
+                          <p className="text-xs text-gray-600">{(cvFile.size / 1024).toFixed(2)} KB</p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setCvFile(null)}
+                        className="text-emerald-600 hover:text-emerald-800"
+                      >
+                        <X size={20} />
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => cvInputRef.current?.click()}
+                      className="w-full px-4 py-6 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <Upload size={20} className="text-blue-600" />
+                      <span className="text-blue-600 font-medium">Click to upload CV or drag and drop</span>
+                    </button>
+                  )}
+                  <input
+                    ref={cvInputRef}
+                    type="file"
+                    accept=".pdf,.doc,.docx,.txt,.xls,.xlsx"
+                    onChange={(e) => handleFileUpload(e, true)}
+                    className="hidden"
+                  />
+                  <p className="text-xs text-gray-500">Maximum file size: 10MB. Supported formats: PDF, Word, Text, Excel</p>
+                </div>
+              </div>
+
+              {/* Resume Text Fallback */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Or Paste Resume Content *</label>
                 <textarea
                   {...register('resume')}
                   rows={5}
                   className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none font-mono text-sm"
-                  placeholder="Paste your resume content here..."
+                  placeholder="If you prefer, paste your resume content here..."
                 />
                 {errors.resume && <p className="text-red-500 text-sm mt-1">{errors.resume.message}</p>}
-                <p className="text-xs text-gray-500 mt-2">Paste your resume text directly into this field</p>
               </div>
 
+              {/* Cover Letter Upload */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Upload Cover Letter (PDF, Word, Text)</label>
+                <div className="space-y-3">
+                  {coverLetterFile ? (
+                    <div className="flex items-center justify-between p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                      <div className="flex items-center gap-2">
+                        <FileText className="text-emerald-600" size={20} />
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{coverLetterFile.name}</p>
+                          <p className="text-xs text-gray-600">{(coverLetterFile.size / 1024).toFixed(2)} KB</p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setCoverLetterFile(null)}
+                        className="text-emerald-600 hover:text-emerald-800"
+                      >
+                        <X size={20} />
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => coverLetterInputRef.current?.click()}
+                      className="w-full px-4 py-6 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <Upload size={20} className="text-blue-600" />
+                      <span className="text-blue-600 font-medium">Click to upload Cover Letter or drag and drop</span>
+                    </button>
+                  )}
+                  <input
+                    ref={coverLetterInputRef}
+                    type="file"
+                    accept=".pdf,.doc,.docx,.txt,.xls,.xlsx"
+                    onChange={(e) => handleFileUpload(e, false)}
+                    className="hidden"
+                  />
+                  <p className="text-xs text-gray-500">Optional. Maximum file size: 10MB. Supported formats: PDF, Word, Text, Excel</p>
+                </div>
+              </div>
+
+              {/* Cover Letter Text */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Cover Letter *</label>
                 <textarea
@@ -251,7 +388,7 @@ export function JobApplicationPage() {
             </div>
 
             <p className="text-xs text-gray-500 text-center">
-              By submitting this application, you agree to our terms and conditions.
+              By submitting this application, you agree to our terms and conditions. Your documents and information will be reviewed by our admin team.
             </p>
           </form>
         </div>

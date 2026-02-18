@@ -1,6 +1,48 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { JobPosition, JobApplication, ContactMessage, SiteSettings } from '@/types';
+import type { JobPosition, JobApplication, ContactMessage, SiteSettings, ApplicationNotification } from '@/types';
+
+// Utility function to send email notification to admin
+const sendAdminEmailNotification = (application: JobApplication, settings: SiteSettings) => {
+  // Simulate sending email (in production, this would call an email API)
+  const emailContent = `
+    New Job Application Received
+    ============================
+    
+    Position: ${application.jobTitle}
+    Applicant: ${application.applicantName}
+    Email: ${application.applicantEmail}
+    Phone: ${application.applicantPhone}
+    Experience: ${application.yearsOfExperience} years
+    
+    Qualifications: ${application.qualifications}
+    
+    CV: ${application.cvFile ? `Uploaded: ${application.cvFile.name}` : 'Text provided'}
+    Cover Letter: ${application.coverLetterFile ? `Uploaded: ${application.coverLetterFile.name}` : 'Text provided'}
+    
+    Application ID: ${application.id}
+    Submitted: ${new Date(application.createdAt).toLocaleString()}
+    
+    View in Admin Dashboard: /admin/applications/${application.id}
+  `;
+  
+  // Log email for debugging
+  console.log('📧 Email notification to admin:', {
+    to: settings.email,
+    subject: `New Application: ${application.applicantName} for ${application.jobTitle}`,
+    body: emailContent,
+  });
+  
+  // In production, send actual email via API
+  // await fetch('/api/send-email', {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     to: settings.email,
+  //     subject: `New Application: ${application.applicantName} for ${application.jobTitle}`,
+  //     body: emailContent,
+  //   })
+  // });
+};
 
 // Initial Job Positions - Healthcare, Tech, Multi-Sector, and Educational
 const initialJobPositions: JobPosition[] = [
@@ -967,6 +1009,7 @@ const initialSettings: SiteSettings = {
 interface DataState {
   jobPositions: JobPosition[];
   jobApplications: JobApplication[];
+  applicationNotifications: ApplicationNotification[];
   contactMessages: ContactMessage[];
   settings: SiteSettings;
   
@@ -980,6 +1023,12 @@ interface DataState {
   updateJobApplication: (id: string, data: Partial<JobApplication>) => void;
   deleteJobApplication: (id: string) => void;
   
+  // Application Notifications
+  addApplicationNotification: (notification: Omit<ApplicationNotification, 'id' | 'createdAt'>) => void;
+  markNotificationAsRead: (id: string) => void;
+  deleteNotification: (id: string) => void;
+  getUnreadNotifications: () => ApplicationNotification[];
+  
   // Contact Messages
   addContactMessage: (message: Omit<ContactMessage, 'id' | 'createdAt' | 'isRead'>) => void;
   markMessageAsRead: (id: string) => void;
@@ -991,9 +1040,10 @@ interface DataState {
 
 export const useDataStore = create<DataState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       jobPositions: initialJobPositions,
       jobApplications: [],
+      applicationNotifications: [],
       contactMessages: [],
       settings: initialSettings,
 
@@ -1023,14 +1073,34 @@ export const useDataStore = create<DataState>()(
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         };
+        
+        // Create notification for admin
+        const notification: ApplicationNotification = {
+          id: `notif-${Date.now()}`,
+          applicationId: newApplication.id,
+          applicantName: application.applicantName,
+          jobTitle: application.jobTitle,
+          applicantEmail: application.applicantEmail,
+          message: `New application received from ${application.applicantName} for ${application.jobTitle} position`,
+          isRead: false,
+          emailSent: true, // Will send email to admin
+          createdAt: new Date().toISOString(),
+        };
+        
         set((state) => ({
           jobApplications: [...state.jobApplications, newApplication],
+          applicationNotifications: [...state.applicationNotifications, notification],
           jobPositions: state.jobPositions.map(p =>
             p.id === application.jobPositionId
               ? { ...p, applicationsCount: p.applicationsCount + 1 }
               : p
           ),
         }));
+        
+        // Simulate sending email to admin
+        const settings = get().settings;
+        sendAdminEmailNotification(newApplication, settings);
+        
         return newApplication;
       },
       updateJobApplication: (id, data) => set((state) => ({
@@ -1041,6 +1111,27 @@ export const useDataStore = create<DataState>()(
       deleteJobApplication: (id) => set((state) => ({
         jobApplications: state.jobApplications.filter(a => a.id !== id),
       })),
+
+      // Application Notifications
+      addApplicationNotification: (notification) => set((state) => ({
+        applicationNotifications: [...state.applicationNotifications, {
+          ...notification,
+          id: `notif-${Date.now()}`,
+          createdAt: new Date().toISOString(),
+        }],
+      })),
+      markNotificationAsRead: (id) => set((state) => ({
+        applicationNotifications: state.applicationNotifications.map(n =>
+          n.id === id ? { ...n, isRead: true } : n
+        ),
+      })),
+      deleteNotification: (id) => set((state) => ({
+        applicationNotifications: state.applicationNotifications.filter(n => n.id !== id),
+      })),
+      getUnreadNotifications: () => {
+        const state = get();
+        return state.applicationNotifications.filter(n => !n.isRead);
+      },
 
       // Contact Messages
       addContactMessage: (message) => set((state) => ({
