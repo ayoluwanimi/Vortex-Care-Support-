@@ -8,7 +8,7 @@ import {
   LayoutDashboard, Briefcase, Users, MessageSquare, Settings, LogOut,
   Menu, X, Plus, Pencil, Trash2, Key, Search,
   CheckCircle, XCircle, Clock, TrendingUp, Activity,
-  Bell, ArrowLeft, AlertCircle, DollarSign
+  Bell, ArrowLeft, AlertCircle, DollarSign, Download, FileText
 } from 'lucide-react';
 
 type Tab = 'dashboard' | 'positions' | 'applications' | 'users' | 'messages' | 'settings';
@@ -469,6 +469,8 @@ export function AdminDashboard() {
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Applicant</th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Position</th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Experience</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">CV</th>
+                        <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Cover Letter</th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Status</th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Date</th>
                         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
@@ -483,6 +485,32 @@ export function AdminDashboard() {
                           </td>
                           <td className="px-6 py-4 text-gray-900">{app.jobTitle}</td>
                           <td className="px-6 py-4 text-gray-900">{app.yearsOfExperience} years</td>
+                          <td className="px-6 py-4">
+                            {app.cvFile ? (
+                              <button
+                                onClick={() => downloadFile(app.cvFile!, app.applicantName)}
+                                className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium"
+                              >
+                                <Download size={16} />
+                                <span className="text-sm">{app.cvFile.name.split('.').pop()?.toUpperCase()}</span>
+                              </button>
+                            ) : (
+                              <span className="text-gray-400 text-sm">No file</span>
+                            )}
+                          </td>
+                          <td className="px-6 py-4">
+                            {app.coverLetterFile ? (
+                              <button
+                                onClick={() => downloadFile(app.coverLetterFile!, `${app.applicantName}_cover_letter`)}
+                                className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium"
+                              >
+                                <Download size={16} />
+                                <span className="text-sm">{app.coverLetterFile.name.split('.').pop()?.toUpperCase()}</span>
+                              </button>
+                            ) : (
+                              <span className="text-gray-400 text-sm">Not provided</span>
+                            )}
+                          </td>
                           <td className="px-6 py-4">
                             <select
                               value={app.status}
@@ -841,5 +869,17 @@ export function AdminDashboard() {
     if (confirm('Are you sure you want to delete this application?')) {
       deleteJobApplication(appId);
     }
+  }
+
+  function downloadFile(fileData: JobApplication['cvFile'] | JobApplication['coverLetterFile'], applicantName: string) {
+    if (!fileData) return;
+
+    // Decode base64 data URL to blob
+    const link = document.createElement('a');
+    link.href = fileData.base64;
+    link.download = fileData.name || `${applicantName}_document`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }
