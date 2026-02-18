@@ -71,12 +71,14 @@ export function Layout({ children }: LayoutProps) {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-emerald-500 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">V</span>
-              </div>
+            <Link to="/" className="flex items-center gap-3">
+              <img 
+                src="/logo.png" 
+                alt="Vortex Care and Support LTD Logo"
+                className="h-16 w-auto"
+              />
               <div>
-                <h1 className="font-bold text-xl text-gray-900">Vortex Care and Support LTD</h1>
+                <h1 className="font-bold text-lg text-gray-900">Vortex Care and Support LTD</h1>
               </div>
             </Link>
 
@@ -257,12 +259,11 @@ export function Layout({ children }: LayoutProps) {
             {/* Company Info */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-emerald-400 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">V</span>
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg">Vortex Care and Support LTD</h3>
-                </div>
+                <img 
+                  src="/logo.png" 
+                  alt="Vortex Care and Support LTD Logo"
+                  className="h-12 w-auto"
+                />
               </div>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">
                 {settings.description}
